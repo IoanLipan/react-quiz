@@ -24,7 +24,7 @@ function FinishScreen({ points, maxPossiblePoints, highscore, dispatch }) {
         {maxPossiblePoints} points. {percentage}%!
       </p>
       <p className="highscore">(Highscore: {highscore} points)</p>
-      {/* <button onClick={() => dispatch({ type: "reset" })}>Play Again</button> */}
+      <button className="btn btn-ui" onClick={() => dispatch({ type: "restart" })}>Play Again</button>
     </>
   );
 }
