@@ -1,5 +1,7 @@
 import { useEffect, useReducer } from "react";
+
 import "./index.css";
+
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Loader from "./components/Loader";
@@ -11,6 +13,8 @@ import Progress from "./components/Progress";
 import FinishScreen from "./components/FinishScreen";
 import Timer from "./components/Timer";
 import Footer from "./components/Footer";
+
+import data from "../data/questions.json";
 
 const SECONDS_PER_QUESTION = 30;
 
@@ -28,7 +32,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "dataReceived":
-      return { ...state, questions: action.payload, status: "ready" };
+      return { ...state, questions: data.questions, status: "ready" };
     case "dataFailed":
       return { ...state, status: "error" };
     case "start":
@@ -93,10 +97,13 @@ export default function App() {
   );
 
   useEffect(function () {
-    fetch("http://localhost:8000/questions")
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((err) => dispatch({ type: "dataFailed" }));
+    // to keep the application deploy simple and free, I decided to not use the API I created and load the data in the app directly
+    // fetch("http://localhost:8000/questions")
+    //   .then((res) => res.json())
+    //   .then((data) => dispatch({ type: "dataReceived", payload: data }))
+    //   .catch((err) => dispatch({ type: "dataFailed" }));
+
+    dispatch({ type: "dataReceived", payload: questions });
   }, []);
 
   return (
